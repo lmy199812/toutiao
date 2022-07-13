@@ -1,7 +1,6 @@
 <template>
   <div id="app">
     <router-view />
-    <div class="box"></div>
   </div>
 </template>
 <script>
@@ -22,11 +21,4 @@ export default {
 //  - postcss-pxtorem
 //  - vant官网
 //  - 版本是5.1.1 -->
-<style lang="less">
-.box {
-  width: 694px;
-  height: 88px;
-  background-color: #6db4fb;
-  border-radius: 10px;
-}
-</style>
+<style lang="less"></style>
