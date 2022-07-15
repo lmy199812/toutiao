@@ -1,7 +1,7 @@
 <template>
   <div class="layout-container">
-    <van-tabbar v-model="active" class="layout-tabbar">
-      <van-tabbar-item to="/home">
+    <van-tabbar route class="layout-tabbar">
+      <van-tabbar-item to="/ ">
         <i slot="icon" class="toutiao tt-shouji"> </i>
         <span class="text">首页</span></van-tabbar-item
       >
@@ -25,9 +25,7 @@
 <script>
 export default {
   data() {
-    return {
-      active: 0
-    }
+    return {}
   }
 }
 </script>
