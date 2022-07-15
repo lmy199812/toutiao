@@ -10,7 +10,32 @@ const routes = [
   // },
   {
     path: '/login',
+    name: 'login',
     component: () => import('@/views/Login')
+  },
+  {
+    path: '/',
+    name: 'layout',
+    component: () => import('@/views/Layout'),
+    children: [
+      {
+        path: '/home',
+        name: 'home',
+        component: () => import('@/views/Home')
+      }, {
+        path: '/qa',
+        name: 'qa',
+        component: () => import('@/views/Qa')
+      }, {
+        path: '/video',
+        name: 'video',
+        component: () => import('@/views/Video')
+      }, {
+        path: '/my',
+        name: 'my',
+        component: () => import('@/views/My')
+      }
+    ]
   }
 ]
 
