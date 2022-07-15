@@ -1,5 +1,6 @@
 <template>
   <div class="layout-container">
+    <router-view></router-view>
     <van-tabbar v-model="active" class="layout-tabbar">
       <van-tabbar-item to="/home">
         <i slot="icon" class="toutiao tt-shouji"> </i>
@@ -18,7 +19,6 @@
         <span class="text">我的</span></van-tabbar-item
       >
     </van-tabbar>
-    <router-view></router-view>
   </div>
 </template>
 
