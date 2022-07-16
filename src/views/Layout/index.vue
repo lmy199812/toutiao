@@ -15,7 +15,7 @@
       >
       <van-tabbar-item to="/my"
         ><i slot="icon" class="toutiao tt-wode"> </i>
-        <span class="text">我的</span></van-tabbar-item
+        <span class="text">{{$store.state.user.token?'我的':'未登录'}}</span></van-tabbar-item
       >
     </van-tabbar>
     <router-view></router-view>

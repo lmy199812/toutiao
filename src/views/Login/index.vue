@@ -123,23 +123,6 @@ export default {
             this.$toast.fail(err.response.data.message)
           }
         }
-        // this.$toast.fail(message)
-        // switch (status) {
-        //   case 400:
-        //     this.$toast.fail(err.response.data.message)
-        //     break
-        //   case 507:
-        //     this.$toast.fail('发送太频繁了，请稍后重试')
-        //     break
-        //   default:
-        //     this.$toast.fail('发送失败，请稍后重试')
-        //     break
-        // }
-        // if (err.response.status === 429) {
-        //   this.$toast.fail('发送太频繁了，请稍后重试')
-        // } else {
-        //   this.$toast.fail('发送失败，请稍后重试')
-        // }
       }
     }
   }
