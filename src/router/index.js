@@ -4,10 +4,6 @@ import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
 const routes = [
-  // {
-  //   path: '/',
-  //   redirect: 'login'
-  // },
   {
     path: '/login',
     name: 'login',
@@ -37,6 +33,11 @@ const routes = [
         component: () => import('@/views/My')
       }
     ]
+  },
+  {
+    path: '/search',
+    name: 'search',
+    component: () => import('@/views/Search')
   }
 ]
 

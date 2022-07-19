@@ -3,7 +3,9 @@
     <!-- 头部导航 -->
     <van-nav-bar class="navbar">
       <template #title>
-        <van-button round> <van-icon name="search" />搜索 </van-button>
+        <van-button round @click="$router.push('/search')">
+          <van-icon name="search" />搜索
+        </van-button>
       </template>
     </van-nav-bar>
     <!-- tabs选项卡 -->
@@ -68,6 +70,9 @@ export default {
             const { data } = await getChannels()
             this.myChannels = data.data.channels
           }
+        } else {
+          const { data } = await getChannels()
+          this.myChannels = data.data.channels
         }
       } catch (error) {
         this.$toast.fail('请重新获取频道列表')
