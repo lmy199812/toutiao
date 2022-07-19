@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import { login, sendSms } from '@/api/user'
+import { login, sendSms } from '@/api'
 import { mobileRules, codeRules } from './rules'
 export default {
   data() {

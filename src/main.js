@@ -8,6 +8,8 @@ import Vant from 'vant'
 import 'vant/lib/index.css'
 // 引入flexible
 import 'amfe-flexible/index.min.js'
+import dayjs from 'dayjs'
+console.log(dayjs().format('YYYY/MM/DD HH:mm:ss'))
 Vue.use(Vant)
 Vue.config.productionTip = false
 new Vue({
