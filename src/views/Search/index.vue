@@ -14,7 +14,16 @@
       />
     </form>
     <!-- 搜索结果/历史/建议 -->
-    <component :is="componentName" :keywords="keywords"></component>
+    <component
+      :is="componentName"
+      :keywords="keywords"
+      @btnResults="btnResults"
+      :results="results"
+      :resultsArr="resultsArr"
+      @btnSearch="btnSearch"
+      @delAll="delAll"
+      @delItem="delItem"
+    ></component>
   </div>
 </template>
 
@@ -22,6 +31,7 @@
 import SearchHis from './compotents/SearchHis.vue'
 import SearchRes from './compotents/SearchRes.vue'
 import SearchSug from './compotents/SearchSug.vue'
+import { getItemLIST, setItemLIST, removeItem } from '@/api'
 export default {
   components: {
     SearchHis,
@@ -42,18 +52,54 @@ export default {
   data() {
     return {
       keywords: '',
-      isShowSearchRes: false
+      isShowSearchRes: false,
+      searchText: '',
+      results: '',
+      resultsArr: getItemLIST() || []
     }
   },
   methods: {
-    onSearch() {
+    onSearch(val) {
+      this.searchText = val
       this.isShowSearchRes = true
+      const res = this.$store.state.history.indexOf(this.searchText)
+      if (res !== -1 && this.searchText.trim() !== '') {
+        this.$store.state.history.splice(res, 1)
+        this.$store.commit('getHistorys', this.searchText)
+      } else {
+        this.$store.commit('getHistorys', this.searchText)
+      }
+    },
+    btnResults(a) {
+      this.results = a
+      // this.onSearch()
+      this.isShowSearchRes = true
+      this.keywords = this.results
+      this.resultsArr.unshift(a)
+      setItemLIST(this.resultsArr)
     },
     backToPage() {
       this.$router.go(-1)
     },
     visibleShowSearchSug() {
       this.isShowSearchRes = false
+    },
+    delItem(index) {
+      this.resultsArr.splice(index, 1)
+      setItemLIST(this.resultsArr)
+    },
+    delAll() {
+      removeItem()
+      this.resultsArr = getItemLIST() || []
+    },
+    btnSearch(val) {
+      this.results = val
+      this.isShowSearchRes = true
+      this.keywords = this.results
+      const index = this.resultsArr.indexOf(val)
+      this.resultsArr.splice(index, 1)
+      this.resultsArr.unshift(val)
+      setItemLIST(this.resultsArr)
     }
   }
 }

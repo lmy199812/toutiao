@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div @click="toNews">
     <van-pull-refresh
       v-model="refreshLoading"
       @refresh="loadNextPage"
@@ -92,6 +92,9 @@ export default {
         this.loading = false
         this.refreshLoading = false
       }
+    },
+    toNews(id) {
+      this.$router.push(`/news/${id}`)
     }
   }
 }

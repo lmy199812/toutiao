@@ -1,11 +1,15 @@
 <template>
   <div>
-    <van-cell v-for="(item, index) in heightData" :key="index">
+    <van-cell
+      v-for="(item, index) in heightData"
+      :key="index"
+      @click="btnSearch($event)"
+    >
       <template #icon>
         <van-icon name="search" class="search-icon" />
       </template>
       <template #title>
-        <span v-html="item"></span>
+        <span v-html="item" ref="arr"></span>
       </template>
     </van-cell>
   </div>
@@ -44,6 +48,10 @@ export default {
       } catch (error) {
         console.log(error)
       }
+    },
+    btnSearch(e) {
+      const arr = e.target.innerText
+      this.$emit('btnResults', arr)
     }
   },
   computed: {
