@@ -4,18 +4,23 @@
       v-if="articleInfo.cover.type === 0"
       :title="articleInfo.title"
       :label="articleDesc"
+      @click="toDetail(articleInfo.art_id)"
     ></van-cell>
     <van-cell
       v-if="articleInfo.cover.type === 1"
       :title="articleInfo.title"
       label="articleDesc"
+      @click="toDetail(articleInfo.art_id)"
       ><van-image
         width="3rem"
         height="2rem"
         :src="articleInfo.cover.images[0]"
       />
     </van-cell>
-    <van-cell v-if="articleInfo.cover.type === 3" :title="articleInfo.title"
+    <van-cell
+      v-if="articleInfo.cover.type === 3"
+      :title="articleInfo.title"
+      @click="toDetail(articleInfo.art_id)"
       ><template #label
         ><div>
           <van-image
@@ -47,6 +52,11 @@ export default {
       const art = this.articleInfo
       const relativeTime = dayjs(art.pubdate).fromNow()
       return `${art.aut_name} ${art.comm_count}评论 ${relativeTime}`
+    }
+  },
+  methods: {
+    toDetail(id) {
+      this.$router.push(`/detail/${id}`)
     }
   }
 }

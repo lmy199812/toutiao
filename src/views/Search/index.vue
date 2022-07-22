@@ -53,21 +53,22 @@ export default {
     return {
       keywords: '',
       isShowSearchRes: false,
-      searchText: '',
       results: '',
       resultsArr: getItemLIST() || []
     }
   },
   methods: {
     onSearch(val) {
-      this.searchText = val
+      this.results = val
       this.isShowSearchRes = true
-      const res = this.$store.state.history.indexOf(this.searchText)
-      if (res !== -1 && this.searchText.trim() !== '') {
-        this.$store.state.history.splice(res, 1)
-        this.$store.commit('getHistorys', this.searchText)
-      } else {
-        this.$store.commit('getHistorys', this.searchText)
+      if (val.trim() !== '' && this.resultsArr.indexOf(val) === -1) {
+        this.resultsArr.unshift(val)
+        setItemLIST(this.resultsArr)
+      } else if (val.trim() !== '' && this.resultsArr.indexOf(val) !== -1) {
+        const index = this.resultsArr.indexOf(val)
+        this.resultsArr.splice(index, 1)
+        this.resultsArr.unshift(val)
+        setItemLIST(this.resultsArr)
       }
     },
     btnResults(a) {
@@ -96,10 +97,15 @@ export default {
       this.results = val
       this.isShowSearchRes = true
       this.keywords = this.results
-      const index = this.resultsArr.indexOf(val)
-      this.resultsArr.splice(index, 1)
-      this.resultsArr.unshift(val)
-      setItemLIST(this.resultsArr)
+      if (this.resultsArr.indexOf(val) === -1) {
+        this.resultsArr.unshift(val)
+        setItemLIST(this.resultsArr)
+      } else {
+        const index = this.resultsArr.indexOf(val)
+        this.resultsArr.splice(index, 1)
+        this.resultsArr.unshift(val)
+        setItemLIST(this.resultsArr)
+      }
     }
   }
 }
