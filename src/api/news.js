@@ -42,9 +42,36 @@ export const addCollections = (target) => {
  * @param 取消收藏
  * @returns promise
  */
+
 export const delCollections = (target) => {
   return request({
     url: `/v1_0/article/collections/${target}`,
+    method: 'DELETE'
+  })
+}
+/**
+ *
+ * @param {*} target
+ * @returns 添加点赞
+ */
+
+export const addLike = (target) => {
+  return request({
+    url: '/v1_0/article/likings',
+    method: 'POST',
+    data: {
+      target
+    }
+  })
+}
+/**
+ *
+ * @param {*} target
+ * @returns 取消点赞
+ */
+export const delLike = (target) => {
+  return request({
+    url: `/v1_0/article/likings/${target}`,
     method: 'DELETE'
   })
 }

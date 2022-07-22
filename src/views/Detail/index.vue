@@ -18,7 +18,7 @@
         </div>
         <div class="user-name">
           <p>{{ newsList.aut_name }}</p>
-          <p>{{ relativeTime }}</p>
+          <p>{{ getDayJs }}</p>
         </div>
         <div class="user-right">
           <van-button
@@ -54,6 +54,7 @@
         style="margin-top: 20px"
       ></article>
       <van-divider style="margin-bottom: 80px">正文结束</van-divider>
+      <Comments></Comments>
     </main>
     <footer>
       <div class="foot-left">
@@ -78,15 +79,27 @@
       </div>
       <div class="foot-right">
         <span><van-icon name="chat-o" badge="0" /></span>
-        <span @click="addCollections" v-if="!newsList.is_collected"
-          ><van-icon name="star-o" /><van-icon
+        <span
+          ><van-icon
+            name="star-o"
+            color="#777"
+            @click="addCollections"
+            v-if="!newsList.is_collected" />
+          <van-icon
             name="star"
-            color="#3296fa"
             v-if="newsList.is_collected"
+            color="#3296fa"
             @click="delCollections"
         /></span>
         <span><van-icon name="good-job-o" /></span
-        ><span><van-icon name="share" /></span>
+        ><span
+          ><van-icon name="share" @click="showShare = true" />
+          <van-share-sheet
+            v-model="showShare"
+            title="立即分享给好友"
+            :options="options"
+            @select="onSelect"
+        /></span>
       </div>
     </footer>
   </div>
@@ -97,24 +110,38 @@ import { getNewsList } from '@/api'
 import dayjs from 'dayjs'
 import { addFollow, delFollow } from '@/api/user'
 import { addCollections, delCollections } from '@/api/news'
+import Comments from '@/views/Detail/compoent/Comments.vue'
 export default {
   data() {
     return {
-      newsList: [],
+      newsList: {},
       show: false,
       isFollow: false,
       relativeTime: '',
       loading: false,
-      onloading: false
+      onloading: false,
+      showShare: false,
+      options: [
+        { name: '微信', icon: 'wechat' },
+        { name: '微博', icon: 'weibo' },
+        { name: '复制链接', icon: 'link' },
+        { name: '分享海报', icon: 'poster' },
+        { name: '二维码', icon: 'qrcode' }
+      ]
     }
+  },
+  components: {
+    Comments
   },
   created() {
     this.getNewsList()
   },
   methods: {
+    // 返回
     onClickLeft() {
       this.$router.back()
     },
+    // 展示弹窗
     showPopup() {
       this.show = true
     },
@@ -125,7 +152,6 @@ export default {
         // console.log(res)
         this.newsList = res.data.data
         // console.log(this.newsList)
-        this.relativeTime = dayjs(this.newsList.pubdate).fromNow()
       } catch (error) {}
     },
     // 添加关注
@@ -144,15 +170,33 @@ export default {
       this.getNewsList()
       this.onloading = false
     },
+    // 添加收藏
     async addCollections() {
-      const res = await addCollections(this.newsList.aut_id)
-      console.log(res)
+      await addCollections(this.newsList.art_id)
+      this.getNewsList()
+      this.$toast.success('添加收藏成功')
     },
+    // 删除收藏
     async delCollections() {
-      await delCollections(this.newsList.aut_id)
+      await delCollections(this.newsList.art_id)
+      this.getNewsList()
+      this.$toast.fail('添加收藏失败')
+    },
+    // 分享
+    onSelect(option) {
+      this.$toast(option.name)
+      this.showShare = false
     }
   },
-  computed: {}
+  computed: {
+    // 处理时间
+    getDayJs() {
+      const arr = this.newsList
+      // console.log(arr)
+      const time = dayjs(arr.pubdate)
+      return `${time}`
+    }
+  }
 }
 </script>
 
