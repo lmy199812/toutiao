@@ -69,9 +69,9 @@ export const addLike = (target) => {
  * @param {*} target
  * @returns 取消点赞
  */
-export const delLike = (target) => {
+export const delLike = (articleId) => {
   return request({
-    url: `/v1_0/article/likings/${target}`,
+    url: `/v1_0/article/likings/${articleId}`,
     method: 'DELETE'
   })
 }

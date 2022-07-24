@@ -5,7 +5,7 @@ import store from './store'
 import '@/assets/iconfont/iconfont.css'
 import showdown from 'showdown'
 import hljs from 'highlight.js'
-import './assets/github-markdown(1).css'
+
 // 引入vant
 import Vant from 'vant'
 import 'vant/lib/index.css'
